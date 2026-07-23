@@ -483,9 +483,20 @@ textarea {
   gap: 14px;
   padding: 0;
   border: 0;
+  outline: 0;
   background: transparent;
   text-align: right;
   cursor: default;
+}
+
+.ai-tool-card:focus {
+  outline: 0;
+}
+
+.ai-tool-card:focus-visible .tool-image {
+  box-shadow:
+    0 0 0 3px rgba(18, 73, 159, 0.18),
+    0 16px 34px rgba(16, 24, 40, 0.08);
 }
 
 .ai-tool-card.ready {
