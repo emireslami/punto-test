@@ -584,11 +584,29 @@ textarea {
   font-weight: 700;
 }
 
-.canvas-inner h2.ant-typography {
-  margin: 10px 0 8px;
-  color: #111827;
-  font-size: 24px;
+.canvas-copy {
+  margin: 28px auto 0;
+}
+
+.canvas-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 12px;
+  border: 1px solid #dbe7f6;
+  border-radius: 999px;
+  background: #f7fbff;
+  color: var(--punto-blue);
+  font-size: 12px;
   font-weight: 700;
+}
+
+.canvas-inner h2.ant-typography {
+  margin: 14px 0 10px;
+  color: #111827;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.45;
 }
 
 .canvas-inner .ant-typography {
@@ -596,14 +614,57 @@ textarea {
   line-height: 2;
 }
 
-.instruction-list {
-  display: inline-block;
-  margin: 2px auto 18px;
-  padding-inline-start: 22px;
-  text-align: start;
-  color: #1f2937;
-  font-size: 13px;
+.canvas-copy .ant-typography {
+  max-width: 620px;
+  margin: 0 auto;
+  color: #475467;
+  font-size: 16px;
   line-height: 2.1;
+}
+
+.workflow-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 26px auto 0;
+  text-align: right;
+}
+
+.workflow-step {
+  min-height: 142px;
+  padding: 18px 16px 16px;
+  border: 1px solid #edf2f8;
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, #ffffff, #fbfdff);
+  box-shadow: 0 10px 26px rgba(16, 24, 40, 0.035);
+}
+
+.workflow-step > span {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 14px;
+  border-radius: 999px;
+  background: var(--punto-blue);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.workflow-step strong {
+  display: block;
+  color: #111827;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.workflow-step p {
+  margin: 8px 0 0;
+  color: #667085;
+  font-size: 12px;
+  line-height: 1.9;
 }
 
 .status-row {
@@ -611,7 +672,15 @@ textarea {
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-  margin-top: 18px;
+  margin-top: 22px;
+}
+
+.status-row .ant-tag {
+  margin: 0;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .result-strip {
@@ -694,6 +763,15 @@ textarea {
     min-height: auto;
     padding: 48px 20px;
   }
+
+  .workflow-steps {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+  }
+
+  .workflow-step {
+    min-height: auto;
+  }
 }
 
 @media (max-width: 560px) {
@@ -708,6 +786,14 @@ textarea {
   .side-menu-nav button {
     padding: 0 10px;
     font-size: 12px;
+  }
+
+  .canvas-inner h2.ant-typography {
+    font-size: 24px;
+  }
+
+  .canvas-copy .ant-typography {
+    font-size: 14px;
   }
 
   .choice-grid {

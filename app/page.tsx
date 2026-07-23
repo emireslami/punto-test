@@ -471,16 +471,32 @@ function RenderPanel() {
               </div>
             )}
 
-            <Title level={2}>رندر نمای بیرونی با هوش مصنوعی</Title>
-            <Paragraph>
-              با آپلود یک عکس یا مدل، فضای داخلی یا بیرونی را سریع بازطراحی کن.
-            </Paragraph>
-            <ul className="instruction-list">
-              <li>تصویر را از پنل سمت راست آپلود کن.</li>
-              <li>نوع ورودی، سبک و میزان دقت را انتخاب کن.</li>
-              <li>یک پرامپت کوتاه و دقیق بنویس.</li>
-              <li>از نوار پایین پنل، رندر را شروع کن.</li>
-            </ul>
+            <div className="canvas-copy">
+              <span className="canvas-eyebrow">استودیو رندر معماری</span>
+              <Title level={2}>از تصویر خام تا خروجی قابل ارائه</Title>
+              <Paragraph>
+                یک عکس، اسکیس یا مدل حجمی را وارد کن و با کنترل سبک، دقت و پرامپت،
+                نسخه‌ی تازه‌ای از فضا بساز.
+              </Paragraph>
+            </div>
+
+            <div className="workflow-steps" aria-label="مراحل ساخت رندر">
+              <div className="workflow-step">
+                <span>۱</span>
+                <strong>ورودی را آماده کن</strong>
+                <p>تصویر، اسکیس یا مدل را از پنل سمت راست آپلود کن.</p>
+              </div>
+              <div className="workflow-step">
+                <span>۲</span>
+                <strong>جهت رندر را مشخص کن</strong>
+                <p>نوع ورودی، سبک، سرعت و میزان پایبندی به تصویر را انتخاب کن.</p>
+              </div>
+              <div className="workflow-step">
+                <span>۳</span>
+                <strong>رندر را ثبت کن</strong>
+                <p>پرامپت کوتاه بنویس و از آخرین بخش پنل درخواست را بفرست.</p>
+              </div>
+            </div>
 
             <div className="status-row">
               <Tag color={statusColor(status)}>{status}</Tag>
