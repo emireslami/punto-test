@@ -18,8 +18,8 @@ export const metadata: Metadata = {
     description: "پونتو، پلتفرم بازار کار آنلاین معماری و فریلنسرهای صنعت ساختمان و ابزار هوش مصنوعی رندر معماری",
   },
   icons: {
-    icon: "/favicon.svg?v=2",
-    shortcut: "/favicon.svg?v=2",
+    icon: "/favicon.svg?v=3",
+    shortcut: "/favicon.svg?v=3",
   },
 };
 
