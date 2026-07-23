@@ -3,8 +3,20 @@ import "antd/dist/reset.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "mnml.ai Render Panel",
-  description: "A compact interface for mnml.ai v4.4 Fast and Ultra renders.",
+  title: "پونتو",
+  description: "پونتو، پلتفرم بازار کار آنلاین معماری و فریلنسرهای صنعت ساختمان و ابزار هوش مصنوعی رندر معماری",
+  openGraph: {
+    title: "پونتو",
+    description: "پونتو، پلتفرم بازار کار آنلاین معماری و فریلنسرهای صنعت ساختمان و ابزار هوش مصنوعی رندر معماری",
+    siteName: "پونتو",
+    locale: "fa_IR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "پونتو",
+    description: "پونتو، پلتفرم بازار کار آنلاین معماری و فریلنسرهای صنعت ساختمان و ابزار هوش مصنوعی رندر معماری",
+  },
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
