@@ -603,6 +603,17 @@ function RenderPanel() {
               {requestId ? <Text code dir="ltr">Request ID: {requestId}</Text> : null}
             </div>
 
+            <div className="canvas-bottom-dock" aria-label="وضعیت و راهنمای خروجی">
+              <div>
+                <span>قدم بعدی</span>
+                <strong>{heroImage ? "تنظیمات را دقیق کن و ثبت بزن" : "تصویر را از پنل سمت راست آپلود کن"}</strong>
+              </div>
+              <div>
+                <span>خروجی</span>
+                <strong>{resultUrls.length ? `${resultUrls.length} تصویر آماده` : "پس از ثبت اینجا نمایش داده می‌شود"}</strong>
+              </div>
+            </div>
+
             {resultUrls.length > 1 ? (
               <div className="result-strip">
                 {resultUrls.slice(1).map((url) => (
