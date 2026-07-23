@@ -33,8 +33,11 @@
 }
 
 :root {
-  --background: #f4f1ea;
-  --foreground: #1d2522;
+  --background: #f4f7fc;
+  --foreground: #142036;
+  --punto-blue: #12499f;
+  --punto-blue-soft: #e8f0ff;
+  --punto-border: #cdd8ec;
 }
 
 @theme inline {
@@ -65,10 +68,10 @@ textarea {
 .app-shell {
   min-height: 100vh;
   background:
-    linear-gradient(135deg, rgba(33, 115, 91, 0.1), transparent 34%),
-    linear-gradient(315deg, rgba(197, 142, 74, 0.12), transparent 30%),
-    #f4f1ea;
-  color: #1d2522;
+    linear-gradient(135deg, rgba(18, 73, 159, 0.13), transparent 34%),
+    linear-gradient(315deg, rgba(90, 142, 221, 0.12), transparent 30%),
+    #f4f7fc;
+  color: #142036;
   padding: 24px;
 }
 
@@ -84,8 +87,8 @@ textarea {
 .intro-card,
 .form-card,
 .panel-stack > .ant-card {
-  border-color: #d7d0c3;
-  box-shadow: 0 16px 36px rgba(36, 48, 44, 0.08);
+  border-color: var(--punto-border);
+  box-shadow: 0 16px 36px rgba(18, 73, 159, 0.08);
 }
 
 .intro-card .ant-card-body,
@@ -94,18 +97,31 @@ textarea {
 }
 
 .intro-card {
-  background: #fffcf6;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+}
+
+.brand-lockup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+.punto-logo {
+  width: 144px;
+  height: 40px;
+  object-fit: contain;
 }
 
 .intro-card h1.ant-typography {
-  margin: 16px 0 12px;
-  color: #151b19;
+  margin: 22px 0 12px;
+  color: #0f285a;
   font-size: clamp(2rem, 5vw, 3.3rem);
   line-height: 1.35;
 }
 
 .intro-card .ant-typography {
-  color: #50605a;
+  color: #4b5f81;
   line-height: 2;
 }
 
@@ -119,8 +135,8 @@ textarea {
 }
 
 .upload-box .ant-upload {
-  background: #fffcf6;
-  border-color: #cfc7b8;
+  background: #f8fbff;
+  border-color: var(--punto-border);
 }
 
 .preview-frame {
@@ -129,9 +145,9 @@ textarea {
   justify-content: center;
   min-height: 240px;
   margin-bottom: 24px;
-  border: 1px solid #d7d0c3;
+  border: 1px solid var(--punto-border);
   border-radius: 8px;
-  background: #f9f6ef;
+  background: #f8fbff;
   overflow: hidden;
 }
 
@@ -165,9 +181,9 @@ textarea {
 .result-image {
   max-height: 560px;
   object-fit: contain;
-  border: 1px solid #d7d0c3;
+  border: 1px solid var(--punto-border);
   border-radius: 8px;
-  background: #f9f6ef;
+  background: #f8fbff;
 }
 
 .empty-result {
@@ -176,9 +192,9 @@ textarea {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px dashed #cfc7b8;
+  border: 1px dashed var(--punto-border);
   border-radius: 8px;
-  background: #fffcf6;
+  background: #f8fbff;
 }
 
 .raw-collapse {

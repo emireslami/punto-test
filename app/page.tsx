@@ -74,8 +74,8 @@ export default function Home() {
       theme={{
         algorithm: theme.defaultAlgorithm,
         token: {
-          colorPrimary: "#21735b",
-          colorInfo: "#21735b",
+          colorPrimary: "#12499f",
+          colorInfo: "#12499f",
           borderRadius: 8,
           fontFamily: "IRANSans, Arial, Helvetica, sans-serif",
         },
@@ -94,7 +94,7 @@ export default function Home() {
             controlHeight: 42,
           },
           Segmented: {
-            itemSelectedBg: "#21735b",
+            itemSelectedBg: "#12499f",
             itemSelectedColor: "#ffffff",
           },
         },
@@ -246,9 +246,12 @@ function RenderPanel() {
         <Card className="intro-card" variant="outlined">
           <Flex vertical justify="space-between" className="intro-card-inner">
             <div>
-              <Tag color="success" icon={<ThunderboltOutlined />}>
-                mnml.ai render panel
-              </Tag>
+              <div className="brand-lockup">
+                <img src="/punto-logo.svg" alt="Punto" className="punto-logo" />
+                <Tag color="blue" icon={<ThunderboltOutlined />}>
+                  mnml.ai render panel
+                </Tag>
+              </div>
               <Title level={1}>خروجی سریع از v4.4 Fast و Ultra</Title>
               <Paragraph>
                 عکس معماری یا محصول را بدهید، پرامپت را بنویسید و مدل را انتخاب کنید.
@@ -258,7 +261,7 @@ function RenderPanel() {
 
             <Space direction="vertical" size={12} className="model-notes">
               <Alert
-                type="success"
+                type="info"
                 showIcon
                 message="Fast"
                 description="سریع‌تر، خروجی 1K، یک اعتبار برای هر تولید."
