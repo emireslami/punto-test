@@ -68,6 +68,79 @@ textarea {
   background: #fff;
 }
 
+.app-frame {
+  display: grid;
+  grid-template-columns: 238px minmax(0, 1fr);
+  min-height: 100vh;
+  direction: rtl;
+}
+
+.main-area {
+  min-width: 0;
+  background: #fff;
+}
+
+.side-menu {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 26px 18px 18px;
+  border-inline-start: 1px solid var(--punto-border);
+  background: #f8fafc;
+}
+
+.side-menu-logo {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #eef1f6;
+}
+
+.side-menu-logo img {
+  width: 96px;
+  height: auto;
+}
+
+.side-menu-nav {
+  display: grid;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.side-menu-nav button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: #667085;
+  text-align: right;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.side-menu-nav button:hover,
+.side-menu-nav button.active {
+  background: #eef2f7;
+  color: #111827;
+}
+
+.side-menu-nav .anticon {
+  color: #98a2b3;
+  font-size: 20px;
+}
+
+.side-menu-nav button.active .anticon {
+  color: var(--punto-blue);
+}
+
 .studio-header {
   position: sticky;
   top: 0;
@@ -558,6 +631,41 @@ textarea {
 }
 
 @media (max-width: 1020px) {
+  .app-frame {
+    grid-template-columns: 1fr;
+  }
+
+  .side-menu {
+    position: static;
+    height: auto;
+    padding: 14px 16px;
+    border-inline-start: 0;
+    border-bottom: 1px solid var(--punto-border);
+  }
+
+  .side-menu-logo {
+    justify-content: flex-start;
+    padding-bottom: 12px;
+  }
+
+  .side-menu-logo img {
+    width: 78px;
+  }
+
+  .side-menu-nav {
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    gap: 8px;
+    margin-top: 0;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  .side-menu-nav button {
+    min-height: 40px;
+    white-space: nowrap;
+  }
+
   .studio-layout {
     grid-template-columns: 1fr;
   }
@@ -582,12 +690,13 @@ textarea {
     padding: 0 12px;
   }
 
-  .header-logo {
-    width: 78px;
+  .side-menu {
+    padding-inline: 12px;
   }
 
-  .brand-mark {
-    display: none;
+  .side-menu-nav button {
+    padding: 0 10px;
+    font-size: 12px;
   }
 
   .choice-grid {

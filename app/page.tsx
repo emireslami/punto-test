@@ -6,8 +6,12 @@ import {
   CodeOutlined,
   DownOutlined,
   FileImageOutlined,
+  FolderOutlined,
   LogoutOutlined,
+  ReadOutlined,
   SettingOutlined,
+  ShopOutlined,
+  StarOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import {
@@ -238,39 +242,66 @@ function RenderPanel() {
 
   return (
     <main className="studio-shell" dir="rtl">
-      <header className="studio-header">
-        <div className="header-actions">
-          <Dropdown
-            trigger={["click"]}
-            placement="bottomLeft"
-            menu={{
-              items: [
-                { key: "profile", label: "پروفایل", icon: <UserOutlined /> },
-                { key: "settings", label: "تنظیمات", icon: <SettingOutlined /> },
-                { type: "divider" },
-                { key: "logout", label: "خروج", icon: <LogoutOutlined /> },
-              ],
-            }}
-          >
-            <Button className="profile-trigger" type="text" aria-label="منوی پروفایل">
-              <Avatar size={30} icon={<UserOutlined />} />
-              <DownOutlined />
-            </Button>
-          </Dropdown>
-        </div>
-        <div className="brand-side">
-          <img src="/punto-logo.svg" alt="Punto" className="header-logo" />
-        </div>
-      </header>
+      <section className="app-frame">
+        <aside className="side-menu" aria-label="منوی اصلی">
+          <div className="side-menu-logo">
+            <img src="/punto-logo.svg" alt="Punto" />
+          </div>
+          <nav className="side-menu-nav">
+            <button type="button">
+              <UserOutlined />
+              <span>پروفایل</span>
+            </button>
+            <button type="button">
+              <FolderOutlined />
+              <span>پروژه‌ها</span>
+            </button>
+            <button type="button">
+              <ShopOutlined />
+              <span>کسب‌وکار</span>
+            </button>
+            <button type="button">
+              <ReadOutlined />
+              <span>آگهی‌های استخدام</span>
+            </button>
+            <button type="button" className="active">
+              <StarOutlined />
+              <span>هوش مصنوعی</span>
+            </button>
+          </nav>
+        </aside>
 
-      <div className="breadcrumb-row">
-        <span>هوش مصنوعی</span>
-        <span>طراحی کانسپت</span>
-        <span>طراحی نمای خارجی</span>
-      </div>
+        <div className="main-area">
+          <header className="studio-header">
+            <div className="header-actions">
+              <Dropdown
+                trigger={["click"]}
+                placement="bottomLeft"
+                menu={{
+                  items: [
+                    { key: "profile", label: "پروفایل", icon: <UserOutlined /> },
+                    { key: "settings", label: "تنظیمات", icon: <SettingOutlined /> },
+                    { type: "divider" },
+                    { key: "logout", label: "خروج", icon: <LogoutOutlined /> },
+                  ],
+                }}
+              >
+                <Button className="profile-trigger" type="text" aria-label="منوی پروفایل">
+                  <Avatar size={30} icon={<UserOutlined />} />
+                  <DownOutlined />
+                </Button>
+              </Dropdown>
+            </div>
+          </header>
 
-      <section className="studio-layout">
-        <aside className="settings-rail">
+          <div className="breadcrumb-row">
+            <span>هوش مصنوعی</span>
+            <span>طراحی کانسپت</span>
+            <span>طراحی نمای خارجی</span>
+          </div>
+
+          <section className="studio-layout">
+            <aside className="settings-rail">
           <Form<FormValues>
             form={form}
             layout="vertical"
@@ -404,10 +435,10 @@ function RenderPanel() {
               </Button>
             </Panel>
           </Form>
-        </aside>
+            </aside>
 
-        <section className="work-canvas">
-          <div className="canvas-inner">
+            <section className="work-canvas">
+              <div className="canvas-inner">
             {heroImage ? (
               <div className="hero-preview">
                 <AntImage src={heroImage} alt="پیش‌نمایش یا خروجی" preview={Boolean(resultUrls[0])} />
@@ -484,8 +515,10 @@ function RenderPanel() {
                 ]}
               />
             ) : null}
-          </div>
-        </section>
+              </div>
+            </section>
+          </section>
+        </div>
       </section>
     </main>
   );
