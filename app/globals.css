@@ -453,8 +453,9 @@ textarea {
 .ai-category-tabs {
   display: flex;
   direction: rtl;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 34px;
+  width: 100%;
   max-width: 1480px;
   margin: 0 auto 26px;
   padding-bottom: 12px;
