@@ -7,7 +7,6 @@ import {
   DownOutlined,
   FileImageOutlined,
   FolderOutlined,
-  LeftOutlined,
   LogoutOutlined,
   ReadOutlined,
   SettingOutlined,
@@ -41,7 +40,7 @@ import {
 import type { UploadFile } from "antd";
 import faIR from "antd/locale/fa_IR";
 import type { ReactNode } from "react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const { Text, Title, Paragraph } = Typography;
 const { Dragger } = Upload;
@@ -70,6 +69,9 @@ type FormValues = {
 
 type PageKey = "profile" | "projects" | "business" | "jobs" | "ai" | "settings";
 type AiToolKey = "exterior";
+
+const toolsPath = "/";
+const exteriorToolPath = "/ai-tools/exterior-render";
 
 const aiTools = [
   {
@@ -211,20 +213,53 @@ function RenderPanel() {
   const isAiToolOpen = activePage === "ai" && activeAiTool === "exterior";
   const breadcrumbItems = isAiToolOpen
     ? [
-        { key: "ai", label: "هوش مصنوعی", onClick: () => setActiveAiTool(null) },
-        { key: "tools", label: "خانه ابزارها", onClick: () => setActiveAiTool(null) },
-        { key: "rendering", label: "رندرینگ", onClick: () => setActiveAiTool(null) },
-        { key: "exterior", label: "رندر خارجی", onClick: () => setActiveAiTool("exterior") },
+        { key: "tools", label: "خانه ابزارها", onClick: () => navigateToTools() },
+        { key: "ai", label: "هوش مصنوعی", onClick: () => navigateToTools() },
+        { key: "exterior", label: "رندر خارجی", onClick: () => navigateToExterior() },
       ]
     : activePage === "ai"
       ? [
-          { key: "ai", label: "هوش مصنوعی", onClick: () => setActiveAiTool(null) },
-          { key: "tools", label: "خانه ابزارها", onClick: () => setActiveAiTool(null) },
+          { key: "tools", label: "خانه ابزارها", onClick: () => navigateToTools() },
+          { key: "ai", label: "هوش مصنوعی", onClick: () => navigateToTools() },
         ]
       : [
           { key: activePage, label: activeNavItem.label, onClick: () => setActivePage(activePage) },
           { key: "soon", label: "هنوز آماده نیست", onClick: () => setActivePage(activePage) },
         ];
+
+  useEffect(() => {
+    function syncRoute() {
+      if (window.location.pathname === exteriorToolPath) {
+        setActivePage("ai");
+        setActiveAiTool("exterior");
+      } else {
+        setActivePage("ai");
+        setActiveAiTool(null);
+      }
+    }
+
+    syncRoute();
+    window.addEventListener("popstate", syncRoute);
+    return () => window.removeEventListener("popstate", syncRoute);
+  }, []);
+
+  function updateRoute(path: string) {
+    if (window.location.pathname !== path) {
+      window.history.pushState(null, "", path);
+    }
+  }
+
+  function navigateToTools() {
+    setActivePage("ai");
+    setActiveAiTool(null);
+    updateRoute(toolsPath);
+  }
+
+  function navigateToExterior() {
+    setActivePage("ai");
+    setActiveAiTool("exterior");
+    updateRoute(exteriorToolPath);
+  }
 
   function handleUpload(nextFile: File) {
     setImage(nextFile);
@@ -258,6 +293,7 @@ function RenderPanel() {
   function openUtilityPage(page: "profile" | "settings") {
     setActivePage(page);
     setActiveAiTool(null);
+    updateRoute(toolsPath);
   }
 
   function confirmLogout() {
@@ -383,7 +419,8 @@ function RenderPanel() {
                 className={activePage === item.key ? "active" : ""}
                 onClick={() => {
                   setActivePage(item.key);
-                  if (item.key === "ai") setActiveAiTool(null);
+                  setActiveAiTool(null);
+                  updateRoute(toolsPath);
                 }}
               >
                 {item.icon}
@@ -428,13 +465,13 @@ function RenderPanel() {
                 <button type="button" onClick={item.onClick}>
                   {item.label}
                 </button>
-                {index < breadcrumbItems.length - 1 ? <LeftOutlined aria-hidden /> : null}
+                {index < breadcrumbItems.length - 1 ? <span aria-hidden>/</span> : null}
               </span>
             ))}
           </div>
 
           {activePage === "ai" && !activeAiTool ? (
-            <AiHomePage onOpenExterior={() => setActiveAiTool("exterior")} />
+            <AiHomePage onOpenExterior={navigateToExterior} />
           ) : isAiToolOpen ? (
             <section className="studio-layout">
             <aside className="settings-rail">
@@ -687,6 +724,7 @@ function AiHomePage({ onOpenExterior }: { onOpenExterior: () => void }) {
             className={`ai-tool-card ${tool.ready ? "ready" : "disabled"}`}
             onClick={tool.ready ? onOpenExterior : undefined}
             aria-disabled={!tool.ready}
+            disabled={!tool.ready}
           >
             <span className="tool-image" style={{ backgroundImage: `url(${tool.image})` }}>
               <span className="credit-pill">
