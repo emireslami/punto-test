@@ -68,7 +68,7 @@ type FormValues = {
   geometry: string;
 };
 
-type PageKey = "profile" | "projects" | "business" | "jobs" | "ai";
+type PageKey = "profile" | "projects" | "business" | "jobs" | "ai" | "settings";
 type AiToolKey = "exterior";
 
 const aiTools = [
@@ -169,7 +169,7 @@ export default function Home() {
 }
 
 function RenderPanel() {
-  const { message } = App.useApp();
+  const { message, modal } = App.useApp();
   const [form] = Form.useForm<FormValues>();
   const [image, setImage] = useState<File | null>(null);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -188,6 +188,14 @@ function RenderPanel() {
 
   const canSubmit = useMemo(() => Boolean(image && !isSubmitting), [image, isSubmitting]);
   const heroImage = resultUrls[0] || preview;
+  const pageLabels: Record<PageKey, string> = {
+    profile: "پروفایل",
+    projects: "پروژه‌ها",
+    business: "کسب‌وکار",
+    jobs: "آگهی‌های استخدام",
+    ai: "هوش مصنوعی",
+    settings: "تنظیمات",
+  };
   const navItems: Array<{ key: PageKey; label: string; icon: ReactNode }> = [
     { key: "profile", label: "پروفایل", icon: <UserOutlined /> },
     { key: "projects", label: "پروژه‌ها", icon: <FolderOutlined /> },
@@ -195,7 +203,11 @@ function RenderPanel() {
     { key: "jobs", label: "آگهی‌های استخدام", icon: <ReadOutlined /> },
     { key: "ai", label: "هوش مصنوعی", icon: <StarOutlined /> },
   ];
-  const activeNavItem = navItems.find((item) => item.key === activePage) || navItems[4];
+  const activeNavItem = navItems.find((item) => item.key === activePage) || {
+    key: activePage,
+    label: pageLabels[activePage],
+    icon: null,
+  };
   const isAiToolOpen = activePage === "ai" && activeAiTool === "exterior";
   const breadcrumbItems = isAiToolOpen
     ? [
@@ -241,6 +253,24 @@ function RenderPanel() {
     setRequestId("");
     if (preview) URL.revokeObjectURL(preview);
     setPreview("");
+  }
+
+  function openUtilityPage(page: "profile" | "settings") {
+    setActivePage(page);
+    setActiveAiTool(null);
+  }
+
+  function confirmLogout() {
+    modal.confirm({
+      title: "خروج از حساب؟",
+      content: "برای خروج از پنل پونتو تایید کن. این بخش فعلاً فقط نمایشی است.",
+      okText: "خروج",
+      cancelText: "انصراف",
+      centered: true,
+      onOk: () => {
+        message.info("خروج فعلاً فعال نیست");
+      },
+    });
   }
 
   async function callMnml(formData: FormData) {
@@ -376,6 +406,11 @@ function RenderPanel() {
                     { type: "divider" },
                     { key: "logout", label: "خروج", icon: <LogoutOutlined /> },
                   ],
+                  onClick: ({ key }) => {
+                    if (key === "profile") openUtilityPage("profile");
+                    if (key === "settings") openUtilityPage("settings");
+                    if (key === "logout") confirmLogout();
+                  },
                 }}
               >
                 <Button className="profile-trigger" type="text" aria-label="منوی پروفایل">
