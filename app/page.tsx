@@ -608,45 +608,12 @@ function RenderPanel() {
 
             <div className="canvas-copy">
               <span className="canvas-eyebrow">استودیو رندر معماری</span>
-              <Title level={2}>از تصویر خام تا خروجی قابل ارائه</Title>
-              <Paragraph>
-                یک عکس، اسکیس یا مدل حجمی را وارد کن و با کنترل سبک، دقت و پرامپت،
-                نسخه‌ی تازه‌ای از فضا بساز.
-              </Paragraph>
-            </div>
-
-            <div className="workflow-steps" aria-label="مراحل ساخت رندر">
-              <div className="workflow-step">
-                <span>۱</span>
-                <strong>ورودی را آماده کن</strong>
-                <p>تصویر، اسکیس یا مدل را از پنل سمت راست آپلود کن.</p>
-              </div>
-              <div className="workflow-step">
-                <span>۲</span>
-                <strong>جهت رندر را مشخص کن</strong>
-                <p>نوع ورودی، سبک، سرعت و میزان پایبندی به تصویر را انتخاب کن.</p>
-              </div>
-              <div className="workflow-step">
-                <span>۳</span>
-                <strong>رندر را ثبت کن</strong>
-                <p>پرامپت کوتاه بنویس و از آخرین بخش پنل درخواست را بفرست.</p>
-              </div>
+              <Title level={2}>رندر خارجی با هوش مصنوعی</Title>
             </div>
 
             <div className="status-row">
               <Tag color={statusColor(status)}>{status}</Tag>
               {requestId ? <Text code dir="ltr">Request ID: {requestId}</Text> : null}
-            </div>
-
-            <div className="canvas-bottom-dock" aria-label="وضعیت و راهنمای خروجی">
-              <div>
-                <span>قدم بعدی</span>
-                <strong>{heroImage ? "تنظیمات را دقیق کن و ثبت بزن" : "تصویر را از پنل سمت راست آپلود کن"}</strong>
-              </div>
-              <div>
-                <span>خروجی</span>
-                <strong>{resultUrls.length ? `${resultUrls.length} تصویر آماده` : "پس از ثبت اینجا نمایش داده می‌شود"}</strong>
-              </div>
             </div>
 
             {resultUrls.length > 1 ? (

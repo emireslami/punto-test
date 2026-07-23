@@ -409,7 +409,7 @@ textarea {
   display: grid;
   place-items: start center;
   min-height: auto;
-  padding: 82px 48px 40px;
+  padding: 56px 48px 28px;
   background: #fff;
   overflow-y: auto;
 }
@@ -711,9 +711,9 @@ textarea {
   justify-items: center;
   align-content: center;
   width: min(520px, 100%);
-  min-height: 286px;
-  margin: 0 auto 20px;
-  padding: 30px 28px 26px;
+  min-height: 224px;
+  margin: 0 auto 14px;
+  padding: 22px 24px 20px;
   overflow: hidden;
   border: 1px dashed #cdd8ea;
   border-radius: 7px;
@@ -754,8 +754,8 @@ textarea {
   display: grid;
   place-items: center;
   width: min(310px, 92%);
-  height: 112px;
-  margin-bottom: 18px;
+  height: 88px;
+  margin-bottom: 12px;
 }
 
 .stage-core {
@@ -763,8 +763,8 @@ textarea {
   z-index: 2;
   display: grid;
   place-items: center;
-  width: 72px;
-  height: 72px;
+  width: 58px;
+  height: 58px;
   border: 1px solid rgba(18, 73, 159, 0.16);
   border-radius: 50%;
   background: #ffffff;
@@ -772,7 +772,7 @@ textarea {
 }
 
 .stage-core .anticon {
-  font-size: 34px;
+  font-size: 28px;
   color: var(--punto-blue);
 }
 
@@ -780,9 +780,9 @@ textarea {
   position: absolute;
   display: grid;
   gap: 8px;
-  width: 88px;
-  height: 66px;
-  padding: 12px;
+  width: 76px;
+  height: 54px;
+  padding: 10px;
   border: 1px solid #e4ebf7;
   border-radius: 7px;
   background: rgba(255, 255, 255, 0.86);
@@ -796,13 +796,13 @@ textarea {
 }
 
 .stage-card span:first-child {
-  width: 42px;
-  height: 8px;
+  width: 36px;
+  height: 7px;
 }
 
 .stage-card span:last-child {
-  width: 62px;
-  height: 30px;
+  width: 52px;
+  height: 22px;
   border-radius: 5px;
   background:
     linear-gradient(135deg, rgba(18, 73, 159, 0.34), rgba(51, 148, 255, 0.1)),
@@ -821,28 +821,28 @@ textarea {
 
 .stage-line {
   position: absolute;
-  width: 88px;
+  width: 76px;
   border-top: 1px dashed rgba(18, 73, 159, 0.28);
 }
 
 .stage-line-top {
-  right: 78px;
-  top: 38px;
+  right: 70px;
+  top: 32px;
   transform: rotate(-9deg);
 }
 
 .stage-line-bottom {
-  left: 78px;
-  bottom: 36px;
+  left: 70px;
+  bottom: 30px;
   transform: rotate(-9deg);
 }
 
 .empty-hero h3 {
   position: relative;
   z-index: 1;
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   color: #111827;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 700;
 }
 
@@ -851,8 +851,8 @@ textarea {
   z-index: 1;
   margin: 0;
   color: #667085;
-  font-size: 13px;
-  line-height: 2;
+  font-size: 12px;
+  line-height: 1.8;
 }
 
 .empty-chips {
@@ -862,12 +862,12 @@ textarea {
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
-  margin-top: 16px;
+  margin-top: 10px;
   direction: ltr;
 }
 
 .empty-chips span {
-  padding: 6px 10px;
+  padding: 4px 9px;
   border: 1px solid #dde8f7;
   border-radius: 999px;
   background: #ffffff;
@@ -877,7 +877,7 @@ textarea {
 }
 
 .canvas-copy {
-  margin: 28px auto 0;
+  margin: 16px auto 0;
 }
 
 .canvas-eyebrow {
@@ -894,9 +894,9 @@ textarea {
 }
 
 .canvas-inner h2.ant-typography {
-  margin: 14px 0 10px;
+  margin: 10px 0 0;
   color: #111827;
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 700;
   line-height: 1.45;
 }
@@ -906,65 +906,12 @@ textarea {
   line-height: 2;
 }
 
-.canvas-copy .ant-typography {
-  max-width: 620px;
-  margin: 0 auto;
-  color: #475467;
-  font-size: 16px;
-  line-height: 2.1;
-}
-
-.workflow-steps {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  margin: 26px auto 0;
-  text-align: right;
-}
-
-.workflow-step {
-  min-height: 142px;
-  padding: 18px 16px 16px;
-  border: 1px solid #edf2f8;
-  border-radius: 8px;
-  background:
-    linear-gradient(180deg, #ffffff, #fbfdff);
-  box-shadow: 0 10px 26px rgba(16, 24, 40, 0.035);
-}
-
-.workflow-step > span {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  margin-bottom: 14px;
-  border-radius: 999px;
-  background: var(--punto-blue);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.workflow-step strong {
-  display: block;
-  color: #111827;
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.workflow-step p {
-  margin: 8px 0 0;
-  color: #667085;
-  font-size: 12px;
-  line-height: 1.9;
-}
-
 .status-row {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-  margin-top: 18px;
+  margin-top: 14px;
 }
 
 .status-row .ant-tag {
@@ -973,44 +920,6 @@ textarea {
   border-radius: 999px;
   font-size: 12px;
   font-weight: 700;
-}
-
-.canvas-bottom-dock {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  width: 100%;
-  margin-top: 16px;
-  padding: 10px;
-  border: 1px solid #edf2f8;
-  border-radius: 8px;
-  background:
-    linear-gradient(180deg, rgba(248, 251, 255, 0.92), rgba(255, 255, 255, 0.98));
-  box-shadow: 0 12px 30px rgba(16, 24, 40, 0.035);
-  text-align: right;
-}
-
-.canvas-bottom-dock > div {
-  min-height: 72px;
-  padding: 14px 14px 12px;
-  border-radius: 7px;
-  background: #fff;
-}
-
-.canvas-bottom-dock span {
-  display: block;
-  margin-bottom: 8px;
-  color: #8b98aa;
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.canvas-bottom-dock strong {
-  display: block;
-  color: #111827;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.8;
 }
 
 .result-strip {
@@ -1117,18 +1026,6 @@ textarea {
     padding: 36px 20px;
   }
 
-  .workflow-steps {
-    grid-template-columns: 1fr;
-    max-width: 520px;
-  }
-
-  .workflow-step {
-    min-height: auto;
-  }
-
-  .canvas-bottom-dock {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 560px) {
@@ -1147,10 +1044,6 @@ textarea {
 
   .canvas-inner h2.ant-typography {
     font-size: 24px;
-  }
-
-  .canvas-copy .ant-typography {
-    font-size: 14px;
   }
 
   .ai-home-header h1.ant-typography {
