@@ -392,8 +392,28 @@ function RenderPanel() {
               </div>
             ) : (
               <div className="empty-hero">
-                <CloudUploadOutlined />
-                <p>برای شروع یک تصویر آپلود کنید</p>
+                <div className="empty-stage" aria-hidden="true">
+                  <span className="stage-line stage-line-top" />
+                  <span className="stage-card stage-card-input">
+                    <span />
+                    <span />
+                  </span>
+                  <span className="stage-core">
+                    <CloudUploadOutlined />
+                  </span>
+                  <span className="stage-card stage-card-output">
+                    <span />
+                    <span />
+                  </span>
+                  <span className="stage-line stage-line-bottom" />
+                </div>
+                <h3>تصویر اول را بفرست، رندر آماده می‌شود</h3>
+                <p>عکس، اسکیس یا مدل حجمی را از پنل سمت راست آپلود کن.</p>
+                <div className="empty-chips">
+                  <span>photo</span>
+                  <span>sketch</span>
+                  <span>3dmass</span>
+                </div>
               </div>
             )}
 
