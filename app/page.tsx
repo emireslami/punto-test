@@ -67,7 +67,7 @@ export default function Home() {
           colorPrimary: "#12499f",
           colorInfo: "#12499f",
           borderRadius: 6,
-          fontFamily: "IRANSans, Arial, Helvetica, sans-serif",
+          fontFamily: "Anjoman, Arial, Helvetica, sans-serif",
         },
         components: {
           Button: { controlHeight: 42, fontWeight: 700 },

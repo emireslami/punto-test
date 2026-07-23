@@ -1,32 +1,32 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: "IRANSans";
-  src: url("/fonts/IRANSansWeb_Light.ttf") format("truetype");
-  font-weight: 300;
+  font-family: "Anjoman";
+  src: url("/fonts/Anjoman-FaNum-Regular.woff2") format("woff2");
+  font-weight: 300 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "IRANSans";
-  src: url("/fonts/IRANSansWeb_Light.ttf") format("truetype");
-  font-weight: 400;
+  font-family: "Anjoman";
+  src: url("/fonts/Anjoman-FaNum-Medium.woff2") format("woff2");
+  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "IRANSans";
-  src: url("/fonts/IRANSansWeb_Bold.ttf") format("truetype");
+  font-family: "Anjoman";
+  src: url("/fonts/Anjoman-FaNum-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "IRANSans";
-  src: url("/fonts/IRANSansWeb_Bold.ttf") format("truetype");
+  font-family: "Anjoman";
+  src: url("/fonts/Anjoman-FaNum-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -41,7 +41,7 @@
 }
 
 @theme inline {
-  --font-sans: "IRANSans", Arial, Helvetica, sans-serif;
+  --font-sans: "Anjoman", Arial, Helvetica, sans-serif;
 }
 
 * {
@@ -52,7 +52,7 @@ body {
   margin: 0;
   background: #ffffff;
   color: var(--punto-text);
-  font-family: "IRANSans", Arial, Helvetica, sans-serif;
+  font-family: "Anjoman", Arial, Helvetica, sans-serif;
   font-weight: 300;
 }
 
