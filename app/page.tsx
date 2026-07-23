@@ -235,7 +235,6 @@ function RenderPanel() {
     <main className="studio-shell" dir="rtl">
       <header className="studio-header">
         <div className="header-actions">
-          <Button type="primary" size="small">شارژ اشتراک</Button>
           <Button size="small">تاریخچه</Button>
           <Button size="small" shape="circle">؟</Button>
         </div>
@@ -366,7 +365,7 @@ function RenderPanel() {
                 loading={isSubmitting}
                 disabled={!canSubmit}
               >
-                نیاز به شارژ اشتراک
+                ثبت
               </Button>
             </Panel>
 
