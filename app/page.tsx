@@ -657,8 +657,9 @@ function AiHomePage({ onOpenExterior }: { onOpenExterior: () => void }) {
           <button
             key={tool.key}
             type="button"
-            className={`ai-tool-card ${tool.ready ? "ready" : ""}`}
+            className={`ai-tool-card ${tool.ready ? "ready" : "disabled"}`}
             onClick={tool.ready ? onOpenExterior : undefined}
+            aria-disabled={!tool.ready}
           >
             <span className="tool-image" style={{ backgroundImage: `url(${tool.image})` }}>
               <span className="credit-pill">

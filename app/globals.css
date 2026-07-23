@@ -493,7 +493,7 @@ textarea {
   outline: 0;
 }
 
-.ai-tool-card:focus-visible .tool-image {
+.ai-tool-card.ready:focus-visible .tool-image {
   box-shadow:
     0 0 0 3px rgba(18, 73, 159, 0.18),
     0 16px 34px rgba(16, 24, 40, 0.08);
@@ -501,6 +501,24 @@ textarea {
 
 .ai-tool-card.ready {
   cursor: pointer;
+}
+
+.ai-tool-card.disabled {
+  cursor: not-allowed;
+}
+
+.ai-tool-card.disabled .tool-image {
+  filter: grayscale(1) saturate(0.1);
+  opacity: 0.62;
+  box-shadow: none;
+}
+
+.ai-tool-card.disabled .credit-pill {
+  background: #667085;
+}
+
+.ai-tool-card.disabled .tool-meta {
+  opacity: 0.72;
 }
 
 .tool-image {
