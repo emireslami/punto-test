@@ -73,6 +73,7 @@ textarea {
   top: 0;
   z-index: 10;
   display: flex;
+  direction: ltr;
   align-items: center;
   justify-content: space-between;
   height: 50px;
@@ -87,47 +88,34 @@ textarea {
   display: flex;
   align-items: center;
   gap: 10px;
+  direction: rtl;
 }
 
 .header-actions {
-  flex-direction: row-reverse;
+  justify-content: flex-start;
 }
 
-.header-actions .ant-btn {
-  color: #111827;
+.brand-side {
+  justify-content: flex-end;
+}
+
+.profile-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 4px 6px;
+  color: #344054;
   box-shadow: none;
 }
 
-.history-button {
-  min-width: 102px;
-  border: 0;
-  background: #f2f4f7;
-  color: #111827;
-  font-weight: 700;
-}
-
-.history-button:hover {
-  background: #e9edf3 !important;
+.profile-trigger:hover {
+  background: #f2f4f7 !important;
   color: #111827 !important;
 }
 
-.workspace-mark {
-  display: grid;
-  grid-template-columns: repeat(3, 5px);
-  gap: 3px;
-  width: 28px;
-  height: 28px;
-  align-items: stretch;
-  transform: skewX(-8deg);
-}
-
-.workspace-mark span {
-  display: block;
-  background: #111827;
-}
-
-.workspace-mark span:nth-child(2) {
-  background: linear-gradient(180deg, #111827 0 44%, #ffffff 44% 54%, #111827 54%);
+.profile-trigger .ant-avatar {
+  background: var(--punto-blue);
 }
 
 .header-logo {

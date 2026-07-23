@@ -4,18 +4,21 @@ import {
   ApiOutlined,
   CloudUploadOutlined,
   CodeOutlined,
-  ClockCircleOutlined,
-  CustomerServiceOutlined,
   DownOutlined,
   FileImageOutlined,
+  LogoutOutlined,
+  SettingOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import {
   App,
+  Avatar,
   Button,
   Card,
   Collapse,
   ConfigProvider,
   Divider,
+  Dropdown,
   Flex,
   Form,
   Image as AntImage,
@@ -237,22 +240,23 @@ function RenderPanel() {
     <main className="studio-shell" dir="rtl">
       <header className="studio-header">
         <div className="header-actions">
-          <Button size="small" type="text" icon={<DownOutlined />} aria-label="باز کردن منو" />
-          <span className="workspace-mark" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </span>
-          <Button size="small" className="history-button" icon={<ClockCircleOutlined />}>
-            تاریخچه
-          </Button>
-          <Button
-            size="small"
-            type="text"
-            shape="circle"
-            icon={<CustomerServiceOutlined />}
-            aria-label="پشتیبانی"
-          />
+          <Dropdown
+            trigger={["click"]}
+            placement="bottomLeft"
+            menu={{
+              items: [
+                { key: "profile", label: "پروفایل", icon: <UserOutlined /> },
+                { key: "settings", label: "تنظیمات", icon: <SettingOutlined /> },
+                { type: "divider" },
+                { key: "logout", label: "خروج", icon: <LogoutOutlined /> },
+              ],
+            }}
+          >
+            <Button className="profile-trigger" type="text" aria-label="منوی پروفایل">
+              <Avatar size={30} icon={<UserOutlined />} />
+              <DownOutlined />
+            </Button>
+          </Dropdown>
         </div>
         <div className="brand-side">
           <img src="/punto-logo.svg" alt="Punto" className="header-logo" />
