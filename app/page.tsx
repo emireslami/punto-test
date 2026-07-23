@@ -357,16 +357,6 @@ function RenderPanel() {
               <p className="panel-note">
                 سریع‌تر برای تست، بهترین خروجی برای نتیجه نهایی.
               </p>
-              <Button
-                block
-                type="primary"
-                htmlType="submit"
-                icon={<FileImageOutlined />}
-                loading={isSubmitting}
-                disabled={!canSubmit}
-              >
-                ثبت
-              </Button>
             </Panel>
 
             <Panel title="تنظیمات API">
@@ -380,6 +370,19 @@ function RenderPanel() {
               <Form.Item label="Expert" name="expert">
                 <Select options={experts.map((item) => ({ label: item, value: item }))} />
               </Form.Item>
+            </Panel>
+
+            <Panel title="ثبت درخواست">
+              <Button
+                block
+                type="primary"
+                htmlType="submit"
+                icon={<FileImageOutlined />}
+                loading={isSubmitting}
+                disabled={!canSubmit}
+              >
+                ثبت
+              </Button>
             </Panel>
           </Form>
         </aside>
