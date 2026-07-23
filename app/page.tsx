@@ -71,7 +71,7 @@ type PageKey = "profile" | "projects" | "business" | "jobs" | "ai" | "settings";
 type AiToolKey = "exterior";
 
 const toolsPath = "/";
-const exteriorToolPath = "/ai-tools/exterior-render";
+const exteriorToolPath = "/?tool=exterior-render";
 
 const aiTools = [
   {
@@ -229,7 +229,7 @@ function RenderPanel() {
 
   useEffect(() => {
     function syncRoute() {
-      if (window.location.pathname === exteriorToolPath) {
+      if (window.location.search === "?tool=exterior-render") {
         setActivePage("ai");
         setActiveAiTool("exterior");
       } else {
@@ -244,7 +244,8 @@ function RenderPanel() {
   }, []);
 
   function updateRoute(path: string) {
-    if (window.location.pathname !== path) {
+    const currentPath = `${window.location.pathname}${window.location.search}`;
+    if (currentPath !== path) {
       window.history.pushState(null, "", path);
     }
   }
