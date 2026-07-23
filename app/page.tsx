@@ -38,6 +38,7 @@ import {
 } from "antd";
 import type { UploadFile } from "antd";
 import faIR from "antd/locale/fa_IR";
+import type { ReactNode } from "react";
 import { useMemo, useState } from "react";
 
 const { Text, Title, Paragraph } = Typography;
@@ -64,6 +65,8 @@ type FormValues = {
   renderStyle: string;
   geometry: string;
 };
+
+type PageKey = "profile" | "projects" | "business" | "jobs" | "ai";
 
 export default function Home() {
   return (
@@ -112,9 +115,18 @@ function RenderPanel() {
   const [imageKind, setImageKind] = useState("3dmass");
   const [stylePreset, setStylePreset] = useState("none");
   const [fidelity, setFidelity] = useState(75);
+  const [activePage, setActivePage] = useState<PageKey>("ai");
 
   const canSubmit = useMemo(() => Boolean(image && !isSubmitting), [image, isSubmitting]);
   const heroImage = resultUrls[0] || preview;
+  const navItems: Array<{ key: PageKey; label: string; icon: ReactNode }> = [
+    { key: "profile", label: "پروفایل", icon: <UserOutlined /> },
+    { key: "projects", label: "پروژه‌ها", icon: <FolderOutlined /> },
+    { key: "business", label: "کسب‌وکار", icon: <ShopOutlined /> },
+    { key: "jobs", label: "آگهی‌های استخدام", icon: <ReadOutlined /> },
+    { key: "ai", label: "هوش مصنوعی", icon: <StarOutlined /> },
+  ];
+  const activeNavItem = navItems.find((item) => item.key === activePage) || navItems[4];
 
   function handleUpload(nextFile: File) {
     setImage(nextFile);
@@ -248,26 +260,17 @@ function RenderPanel() {
             <img src="/punto-logo.svg" alt="Punto" />
           </div>
           <nav className="side-menu-nav">
-            <button type="button">
-              <UserOutlined />
-              <span>پروفایل</span>
-            </button>
-            <button type="button">
-              <FolderOutlined />
-              <span>پروژه‌ها</span>
-            </button>
-            <button type="button">
-              <ShopOutlined />
-              <span>کسب‌وکار</span>
-            </button>
-            <button type="button">
-              <ReadOutlined />
-              <span>آگهی‌های استخدام</span>
-            </button>
-            <button type="button" className="active">
-              <StarOutlined />
-              <span>هوش مصنوعی</span>
-            </button>
+            {navItems.map((item) => (
+              <button
+                key={item.key}
+                type="button"
+                className={activePage === item.key ? "active" : ""}
+                onClick={() => setActivePage(item.key)}
+              >
+                {item.icon}
+                <span>{item.label}</span>
+              </button>
+            ))}
           </nav>
         </aside>
 
@@ -296,12 +299,19 @@ function RenderPanel() {
           </header>
 
           <div className="breadcrumb-row">
-            <span>هوش مصنوعی</span>
-            <span>طراحی کانسپت</span>
-            <span>طراحی نمای خارجی</span>
+            <span>{activeNavItem.label}</span>
+            {activePage === "ai" ? (
+              <>
+                <span>طراحی کانسپت</span>
+                <span>طراحی نمای خارجی</span>
+              </>
+            ) : (
+              <span>هنوز آماده نیست</span>
+            )}
           </div>
 
-          <section className="studio-layout">
+          {activePage === "ai" ? (
+            <section className="studio-layout">
             <aside className="settings-rail">
           <Form<FormValues>
             form={form}
@@ -535,9 +545,32 @@ function RenderPanel() {
               </div>
             </section>
           </section>
+          ) : (
+            <NotReadyPage title={activeNavItem.label} />
+          )}
         </div>
       </section>
     </main>
+  );
+}
+
+function NotReadyPage({ title }: { title: string }) {
+  return (
+    <section className="not-ready-canvas">
+      <div className="not-ready-panel">
+        <Tag color="processing">در حال آماده‌سازی</Tag>
+        <Title level={2}>{title}</Title>
+        <Paragraph>
+          این بخش هنوز برای استفاده عمومی آماده نشده است. صفحه‌ی هوش مصنوعی فعال است و
+          می‌توانی از منوی راست دوباره وارد آن شوی.
+        </Paragraph>
+        <div className="not-ready-grid" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </div>
+      </div>
+    </section>
   );
 }
 

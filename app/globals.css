@@ -399,6 +399,69 @@ textarea {
   text-align: center;
 }
 
+.not-ready-canvas {
+  display: grid;
+  place-items: center;
+  min-height: calc(100vh - 90px);
+  padding: 48px;
+  background:
+    linear-gradient(90deg, rgba(18, 73, 159, 0.035) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(18, 73, 159, 0.035) 1px, transparent 1px),
+    #ffffff;
+  background-size: 36px 36px;
+}
+
+.not-ready-panel {
+  width: min(560px, 100%);
+  padding: 44px 38px;
+  border: 1px solid #e7edf6;
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(250, 252, 255, 0.98));
+  text-align: center;
+  box-shadow: 0 24px 70px rgba(16, 24, 40, 0.08);
+}
+
+.not-ready-panel .ant-tag {
+  margin: 0 0 14px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.not-ready-panel h2.ant-typography {
+  margin: 0 0 10px;
+  color: #111827;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.not-ready-panel .ant-typography {
+  max-width: 440px;
+  margin: 0 auto;
+  color: #667085;
+  font-size: 15px;
+  line-height: 2;
+}
+
+.not-ready-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 30px auto 0;
+  max-width: 330px;
+}
+
+.not-ready-grid span {
+  display: block;
+  height: 76px;
+  border: 1px solid #e5edf8;
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(18, 73, 159, 0.12), transparent),
+    #f8fbff;
+}
+
 .hero-preview {
   width: min(520px, 100%);
   margin: 0 auto 18px;
@@ -764,6 +827,11 @@ textarea {
     padding: 48px 20px;
   }
 
+  .not-ready-canvas {
+    min-height: 520px;
+    padding: 36px 20px;
+  }
+
   .workflow-steps {
     grid-template-columns: 1fr;
     max-width: 520px;
@@ -794,6 +862,18 @@ textarea {
 
   .canvas-copy .ant-typography {
     font-size: 14px;
+  }
+
+  .not-ready-panel {
+    padding: 34px 22px;
+  }
+
+  .not-ready-panel h2.ant-typography {
+    font-size: 24px;
+  }
+
+  .not-ready-grid {
+    grid-template-columns: 1fr;
   }
 
   .choice-grid {
