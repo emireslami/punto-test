@@ -7,6 +7,7 @@ import {
   DownOutlined,
   FileImageOutlined,
   FolderOutlined,
+  LeftOutlined,
   LogoutOutlined,
   ReadOutlined,
   SettingOutlined,
@@ -196,6 +197,22 @@ function RenderPanel() {
   ];
   const activeNavItem = navItems.find((item) => item.key === activePage) || navItems[4];
   const isAiToolOpen = activePage === "ai" && activeAiTool === "exterior";
+  const breadcrumbItems = isAiToolOpen
+    ? [
+        { key: "ai", label: "هوش مصنوعی", onClick: () => setActiveAiTool(null) },
+        { key: "tools", label: "خانه ابزارها", onClick: () => setActiveAiTool(null) },
+        { key: "rendering", label: "رندرینگ", onClick: () => setActiveAiTool(null) },
+        { key: "exterior", label: "رندر خارجی", onClick: () => setActiveAiTool("exterior") },
+      ]
+    : activePage === "ai"
+      ? [
+          { key: "ai", label: "هوش مصنوعی", onClick: () => setActiveAiTool(null) },
+          { key: "tools", label: "خانه ابزارها", onClick: () => setActiveAiTool(null) },
+        ]
+      : [
+          { key: activePage, label: activeNavItem.label, onClick: () => setActivePage(activePage) },
+          { key: "soon", label: "هنوز آماده نیست", onClick: () => setActivePage(activePage) },
+        ];
 
   function handleUpload(nextFile: File) {
     setImage(nextFile);
@@ -371,17 +388,14 @@ function RenderPanel() {
           </header>
 
           <div className="breadcrumb-row">
-            <span>{activeNavItem.label}</span>
-            {isAiToolOpen ? (
-              <>
-                <span>رندرینگ</span>
-                <span>رندر خارجی</span>
-              </>
-            ) : activePage === "ai" ? (
-              <span>خانه ابزارها</span>
-            ) : (
-              <span>هنوز آماده نیست</span>
-            )}
+            {breadcrumbItems.map((item, index) => (
+              <span className="breadcrumb-item" key={item.key}>
+                <button type="button" onClick={item.onClick}>
+                  {item.label}
+                </button>
+                {index < breadcrumbItems.length - 1 ? <LeftOutlined aria-hidden /> : null}
+              </span>
+            ))}
           </div>
 
           {activePage === "ai" && !activeAiTool ? (

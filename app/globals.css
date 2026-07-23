@@ -221,6 +221,7 @@ textarea {
 
 .breadcrumb-row {
   display: flex;
+  direction: rtl;
   justify-content: flex-start;
   gap: 10px;
   height: 40px;
@@ -231,10 +232,29 @@ textarea {
   font-size: 12px;
 }
 
-.breadcrumb-row span + span::before {
-  content: "‹";
-  margin-inline-end: 10px;
+.breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.breadcrumb-item button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.breadcrumb-item button:hover,
+.breadcrumb-item button:focus-visible {
+  color: var(--punto-blue);
+}
+
+.breadcrumb-item .anticon {
   color: #98a2b3;
+  font-size: 10px;
 }
 
 .studio-layout {
