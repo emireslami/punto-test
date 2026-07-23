@@ -288,6 +288,7 @@ function RenderPanel() {
               >
                 <Button className="profile-trigger" type="text" aria-label="منوی پروفایل">
                   <Avatar size={30} icon={<UserOutlined />} />
+                  <span className="profile-name">امیر اسلامی</span>
                   <DownOutlined />
                 </Button>
               </Dropdown>
