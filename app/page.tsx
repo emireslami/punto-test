@@ -8,21 +8,19 @@ import {
   ThunderboltOutlined,
 } from "@ant-design/icons";
 import {
-  Alert,
   App,
   Button,
   Card,
   Collapse,
   ConfigProvider,
   Divider,
-  Empty,
   Flex,
   Form,
   Image as AntImage,
   Input,
-  Row,
   Segmented,
   Select,
+  Slider,
   Space,
   Tag,
   Typography,
@@ -37,16 +35,7 @@ const { Text, Title, Paragraph } = Typography;
 const { Dragger } = Upload;
 
 const experts = ["exterior", "interior", "masterplan", "landscape", "plan", "product"];
-const styles = [
-  "photoreal",
-  "raw",
-  "cgi_render",
-  "cad",
-  "freehand_sketch",
-  "clay_model",
-  "illustration",
-  "watercolor",
-];
+const styles = ["photoreal", "raw", "cgi_render", "cad", "freehand_sketch", "clay_model"];
 
 type Model = "fast" | "ultra";
 type RenderResponse = {
@@ -77,23 +66,14 @@ export default function Home() {
         token: {
           colorPrimary: "#12499f",
           colorInfo: "#12499f",
-          borderRadius: 8,
+          borderRadius: 6,
           fontFamily: "IRANSans, Arial, Helvetica, sans-serif",
         },
         components: {
-          Button: {
-            controlHeight: 44,
-            fontWeight: 700,
-          },
-          Card: {
-            borderRadiusLG: 8,
-          },
-          Input: {
-            controlHeight: 42,
-          },
-          Select: {
-            controlHeight: 42,
-          },
+          Button: { controlHeight: 42, fontWeight: 700 },
+          Card: { borderRadiusLG: 6 },
+          Input: { controlHeight: 40 },
+          Select: { controlHeight: 40 },
           Segmented: {
             itemSelectedBg: "#12499f",
             itemSelectedColor: "#ffffff",
@@ -120,8 +100,12 @@ function RenderPanel() {
   const [resultUrls, setResultUrls] = useState<string[]>([]);
   const [rawResponse, setRawResponse] = useState<RenderResponse | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [imageKind, setImageKind] = useState("3dmass");
+  const [stylePreset, setStylePreset] = useState("none");
+  const [fidelity, setFidelity] = useState(75);
 
   const canSubmit = useMemo(() => Boolean(image && !isSubmitting), [image, isSubmitting]);
+  const heroImage = resultUrls[0] || preview;
 
   function handleUpload(nextFile: File) {
     setImage(nextFile);
@@ -212,11 +196,17 @@ function RenderPanel() {
     setRequestId("");
 
     try {
+      const promptDetails = [
+        values.prompt.trim(),
+        `image type: ${imageKind}`,
+        `style preset: ${stylePreset}`,
+        `fidelity: ${fidelity}`,
+      ].join("\n");
       const formData = new FormData();
       formData.append("action", "render");
       formData.append("model", model);
       formData.append("image", image);
-      formData.append("prompt", values.prompt.trim());
+      formData.append("prompt", promptDetails);
       formData.append("expert_name", values.expert);
       formData.append("render_style", values.renderStyle);
       formData.append("geometry", values.geometry);
@@ -242,186 +232,195 @@ function RenderPanel() {
   }
 
   return (
-    <main className="app-shell" dir="rtl">
-      <section className="app-grid">
-        <Card className="intro-card" variant="outlined">
-          <Flex vertical justify="space-between" className="intro-card-inner">
-            <div>
-              <div className="brand-lockup">
-                <img src="/punto-logo.svg" alt="Punto" className="punto-logo" />
-                <Tag color="blue" icon={<ThunderboltOutlined />}>
-                  mnml.ai render panel
-                </Tag>
+    <main className="studio-shell" dir="rtl">
+      <header className="studio-header">
+        <div className="header-actions">
+          <Button type="primary" size="small">شارژ اشتراک</Button>
+          <Button size="small">تاریخچه</Button>
+          <Button size="small" shape="circle">؟</Button>
+        </div>
+        <div className="brand-side">
+          <img src="/punto-logo.svg" alt="Punto" className="header-logo" />
+          <span className="brand-mark">P</span>
+        </div>
+      </header>
+
+      <div className="breadcrumb-row">
+        <span>هوش مصنوعی</span>
+        <span>طراحی کانسپت</span>
+        <span>طراحی نمای خارجی</span>
+      </div>
+
+      <section className="studio-layout">
+        <aside className="settings-rail">
+          <Form<FormValues>
+            form={form}
+            layout="vertical"
+            requiredMark={false}
+            initialValues={{
+              expert: "exterior",
+              renderStyle: "photoreal",
+              geometry: "precise",
+            }}
+            onFinish={handleSubmit}
+          >
+            <Panel title="آپلود عکس">
+              <Dragger
+                accept="image/png,image/jpeg,image/webp"
+                beforeUpload={handleUpload}
+                fileList={fileList}
+                maxCount={1}
+                onRemove={removeUpload}
+                className="compact-upload"
+              >
+                <Button type="primary" icon={<CloudUploadOutlined />}>آپلود عکس</Button>
+                <p>یا با کشیدن و انداختن عکس</p>
+              </Dragger>
+            </Panel>
+
+            <Panel title="نوع عکس" subtitle="بین مدل‌های زیر نوع عکس ورودی خود را انتخاب کنید.">
+              <ChoiceGrid
+                value={imageKind}
+                onChange={setImageKind}
+                items={[
+                  { value: "photo", label: "photo", visual: "photo" },
+                  { value: "sketch", label: "sketch", visual: "sketch" },
+                  { value: "3dmass", label: "3dmass", visual: "mass" },
+                ]}
+              />
+            </Panel>
+
+            <Panel title="نوع رندر" subtitle="رویکرد رندرینگ بین دقت و خلاقیت.">
+              <Segmented
+                block
+                value={form.getFieldValue("geometry") || "precise"}
+                onChange={(value) => form.setFieldValue("geometry", value)}
+                options={[
+                  { label: "رندر خلاق", value: "creative" },
+                  { label: "رندر دقیق", value: "precise" },
+                ]}
+              />
+              <p className="panel-note">
+                دقیق: برای ورودی‌های دقیق، مواد، رنگ‌ها و هندسه را حفظ می‌کند.
+              </p>
+            </Panel>
+
+            <Panel title="اتونومی: دقیق" subtitle="رویکرد رندرینگ بین دقت و خلاقیت.">
+              <div className="slider-row">
+                <Slider min={0} max={100} value={fidelity} onChange={setFidelity} />
+                <span>{fidelity}</span>
               </div>
-              <Title level={1}>خروجی سریع از v4.4 Fast و Ultra</Title>
-              <Paragraph>
-                عکس معماری یا محصول را بدهید، پرامپت را بنویسید و مدل را انتخاب کنید.
-                نتیجه بعد از پردازش در همین صفحه نمایش داده می‌شود.
-              </Paragraph>
-            </div>
+              <div className="slider-labels">
+                <span>دقیق</span>
+                <span>متعادل</span>
+                <span>انعطاف‌پذیر</span>
+              </div>
+            </Panel>
 
-            <Space direction="vertical" size={12} className="model-notes">
-              <Alert
-                type="info"
-                showIcon
-                message="Fast"
-                description="سریع‌تر، خروجی 1K، یک اعتبار برای هر تولید."
-              />
-              <Alert
-                type="warning"
-                showIcon
-                message="Ultra"
-                description="کیفیت بالاتر، خروجی 2K، سه اعتبار برای هر تولید."
-              />
-            </Space>
-          </Flex>
-        </Card>
-
-        <Space direction="vertical" size={16} className="panel-stack">
-          <Card title="تنظیمات تولید" variant="outlined" className="form-card">
-            <Form<FormValues>
-              form={form}
-              layout="vertical"
-              requiredMark={false}
-              initialValues={{
-                expert: "exterior",
-                renderStyle: "photoreal",
-                geometry: "precise",
-              }}
-              onFinish={handleSubmit}
-            >
-              <Form.Item label="عکس ورودی" required>
-                <Dragger
-                  accept="image/png,image/jpeg,image/webp"
-                  beforeUpload={handleUpload}
-                  fileList={fileList}
-                  maxCount={1}
-                  onRemove={removeUpload}
-                  className="upload-box"
-                >
-                  <p className="ant-upload-drag-icon">
-                    <CloudUploadOutlined />
-                  </p>
-                  <p className="ant-upload-text">عکس را انتخاب یا اینجا رها کنید</p>
-                  <p className="ant-upload-hint">PNG، JPG یا WebP</p>
-                </Dragger>
-              </Form.Item>
-
-              {preview ? (
-                <div className="preview-frame">
-                  <AntImage src={preview} alt="پیش‌نمایش عکس ورودی" preview={false} />
-                </div>
-              ) : null}
-
+            <Panel title="پرامپت">
               <Form.Item
-                label="پرامپت"
                 name="prompt"
                 rules={[{ required: true, message: "پرامپت را وارد کنید" }]}
               >
                 <Input.TextArea
-                  rows={4}
+                  rows={6}
                   maxLength={2000}
-                  showCount
-                  placeholder="مثلا: نمای مدرن با شیشه، نور golden hour و فضای سبز طبیعی"
+                  placeholder="the style, materials, colors, lighting, camera angle, image quality and finish..."
                 />
               </Form.Item>
+            </Panel>
 
-              <Row gutter={[16, 0]}>
-                <Form.Item label="API Key" name="apiKey" className="responsive-field">
-                  <Input.Password
-                    dir="ltr"
-                    prefix={<ApiOutlined />}
-                    placeholder="اختیاری اگر MNML_API_KEY تنظیم شده"
-                  />
-                </Form.Item>
+            <Panel title="استایل‌ها">
+              <ChoiceGrid
+                value={stylePreset}
+                onChange={setStylePreset}
+                items={[
+                  { value: "artistic", label: "Artistic", visual: "image" },
+                  { value: "realistic", label: "Realistic", visual: "image" },
+                  { value: "none", label: "بدون استایل", visual: "none" },
+                ]}
+              />
+              <Form.Item name="renderStyle" className="hidden-field">
+                <Select options={styles.map((item) => ({ label: item, value: item }))} />
+              </Form.Item>
+            </Panel>
 
-                <Form.Item
-                  label="Expert"
-                  name="expert"
-                  className="responsive-field"
-                  rules={[{ required: true }]}
-                >
-                  <Select options={experts.map((item) => ({ label: item, value: item }))} />
-                </Form.Item>
+            <Panel title="سرعت رندر" subtitle="رویکرد رندرینگ بین سرعت و کیفیت.">
+              <Segmented<Model>
+                block
+                value={model}
+                onChange={setModel}
+                options={[
+                  { label: "بهترین خروجی", value: "ultra" },
+                  { label: "سریع‌ترین خروجی", value: "fast" },
+                ]}
+              />
+              <p className="panel-note">
+                سریع‌تر برای تست، بهترین خروجی برای نتیجه نهایی.
+              </p>
+              <Button
+                block
+                type="primary"
+                htmlType="submit"
+                icon={<FileImageOutlined />}
+                loading={isSubmitting}
+                disabled={!canSubmit}
+              >
+                نیاز به شارژ اشتراک
+              </Button>
+            </Panel>
 
-                <Form.Item
-                  label="Render style"
-                  name="renderStyle"
-                  className="responsive-field"
-                  rules={[{ required: true }]}
-                >
-                  <Select options={styles.map((item) => ({ label: item, value: item }))} />
-                </Form.Item>
-
-                <Form.Item
-                  label="Geometry"
-                  name="geometry"
-                  className="responsive-field"
-                  rules={[{ required: true }]}
-                >
-                  <Select
-                    options={[
-                      { label: "precise", value: "precise" },
-                      { label: "creative", value: "creative" },
-                    ]}
-                  />
-                </Form.Item>
-              </Row>
-
-              <Divider />
-
-              <Flex wrap gap={12} align="center" justify="space-between">
-                <Segmented<Model>
-                  value={model}
-                  onChange={setModel}
-                  options={[
-                    { label: "v4.4 Fast", value: "fast" },
-                    { label: "v4.4 Ultra", value: "ultra" },
-                  ]}
+            <Panel title="تنظیمات API">
+              <Form.Item label="API Key" name="apiKey">
+                <Input.Password
+                  dir="ltr"
+                  prefix={<ApiOutlined />}
+                  placeholder="اختیاری اگر MNML_API_KEY تنظیم شده"
                 />
+              </Form.Item>
+              <Form.Item label="Expert" name="expert">
+                <Select options={experts.map((item) => ({ label: item, value: item }))} />
+              </Form.Item>
+            </Panel>
+          </Form>
+        </aside>
 
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  icon={<FileImageOutlined />}
-                  loading={isSubmitting}
-                  disabled={!canSubmit}
-                >
-                  گرفتن خروجی
-                </Button>
-              </Flex>
-            </Form>
-          </Card>
-
-          <Card
-            title="نتیجه"
-            variant="outlined"
-            extra={<Tag color={statusColor(status)}>{status}</Tag>}
-          >
-            {requestId ? (
-              <Text code dir="ltr" className="request-id">
-                Request ID: {requestId}
-              </Text>
-            ) : null}
-
-            {resultUrls.length ? (
-              <div className="result-grid">
-                {resultUrls.map((url) => (
-                  <AntImage
-                    key={url}
-                    src={url}
-                    alt="خروجی تولید شده"
-                    className="result-image"
-                  />
-                ))}
+        <section className="work-canvas">
+          <div className="canvas-inner">
+            {heroImage ? (
+              <div className="hero-preview">
+                <AntImage src={heroImage} alt="پیش‌نمایش یا خروجی" preview={Boolean(resultUrls[0])} />
               </div>
             ) : (
-              <Empty
-                className="empty-result"
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
-                description="خروجی بعد از تکمیل پردازش اینجا دیده می‌شود"
-              />
+              <div className="empty-hero">
+                <CloudUploadOutlined />
+                <p>برای شروع یک تصویر آپلود کنید</p>
+              </div>
             )}
+
+            <Title level={2}>رندر نمای بیرونی با هوش مصنوعی</Title>
+            <Paragraph>
+              با آپلود یک عکس یا مدل، فضای داخلی یا بیرونی را سریع بازطراحی کن.
+            </Paragraph>
+            <ul className="instruction-list">
+              <li>تصویر را از پنل سمت راست آپلود کن.</li>
+              <li>نوع ورودی، سبک و میزان دقت را انتخاب کن.</li>
+              <li>یک پرامپت کوتاه و دقیق بنویس.</li>
+              <li>از نوار پایین پنل، رندر را شروع کن.</li>
+            </ul>
+
+            <div className="status-row">
+              <Tag color={statusColor(status)}>{status}</Tag>
+              {requestId ? <Text code dir="ltr">Request ID: {requestId}</Text> : null}
+            </div>
+
+            {resultUrls.length > 1 ? (
+              <div className="result-strip">
+                {resultUrls.slice(1).map((url) => (
+                  <AntImage key={url} src={url} alt="خروجی تولید شده" />
+                ))}
+              </div>
+            ) : null}
 
             {rawResponse ? (
               <Collapse
@@ -444,10 +443,59 @@ function RenderPanel() {
                 ]}
               />
             ) : null}
-          </Card>
-        </Space>
+          </div>
+        </section>
       </section>
     </main>
+  );
+}
+
+function Panel({
+  title,
+  subtitle,
+  children,
+}: {
+  title: string;
+  subtitle?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Card className="settings-card" variant="outlined">
+      <Flex justify="space-between" align="start" gap={12}>
+        <div>
+          <h3>{title}</h3>
+          {subtitle ? <p>{subtitle}</p> : null}
+        </div>
+      </Flex>
+      <Divider />
+      {children}
+    </Card>
+  );
+}
+
+function ChoiceGrid({
+  value,
+  onChange,
+  items,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+  items: Array<{ value: string; label: string; visual: string }>;
+}) {
+  return (
+    <div className="choice-grid">
+      {items.map((item) => (
+        <button
+          key={item.value}
+          type="button"
+          className={`choice-tile ${value === item.value ? "selected" : ""}`}
+          onClick={() => onChange(item.value)}
+        >
+          <span className={`tile-visual ${item.visual}`} />
+          <span>{item.label}</span>
+        </button>
+      ))}
+    </div>
   );
 }
 
