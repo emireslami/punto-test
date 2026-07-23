@@ -61,3 +61,154 @@ select,
 textarea {
   font: inherit;
 }
+
+.app-shell {
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(33, 115, 91, 0.1), transparent 34%),
+    linear-gradient(315deg, rgba(197, 142, 74, 0.12), transparent 30%),
+    #f4f1ea;
+  color: #1d2522;
+  padding: 24px;
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.92fr) minmax(0, 1.08fr);
+  gap: 24px;
+  width: min(1180px, 100%);
+  min-height: calc(100vh - 48px);
+  margin: 0 auto;
+}
+
+.intro-card,
+.form-card,
+.panel-stack > .ant-card {
+  border-color: #d7d0c3;
+  box-shadow: 0 16px 36px rgba(36, 48, 44, 0.08);
+}
+
+.intro-card .ant-card-body,
+.intro-card-inner {
+  height: 100%;
+}
+
+.intro-card {
+  background: #fffcf6;
+}
+
+.intro-card h1.ant-typography {
+  margin: 16px 0 12px;
+  color: #151b19;
+  font-size: clamp(2rem, 5vw, 3.3rem);
+  line-height: 1.35;
+}
+
+.intro-card .ant-typography {
+  color: #50605a;
+  line-height: 2;
+}
+
+.model-notes {
+  width: 100%;
+  margin-top: 32px;
+}
+
+.panel-stack {
+  width: 100%;
+}
+
+.upload-box .ant-upload {
+  background: #fffcf6;
+  border-color: #cfc7b8;
+}
+
+.preview-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+  margin-bottom: 24px;
+  border: 1px solid #d7d0c3;
+  border-radius: 8px;
+  background: #f9f6ef;
+  overflow: hidden;
+}
+
+.preview-frame .ant-image {
+  width: 100%;
+  text-align: center;
+}
+
+.preview-frame img {
+  max-height: 280px;
+  object-fit: contain;
+}
+
+.responsive-field {
+  width: 50%;
+  padding-inline-end: 8px;
+}
+
+.request-id {
+  display: inline-block;
+  margin-bottom: 16px;
+  direction: ltr;
+}
+
+.result-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.result-image {
+  max-height: 560px;
+  object-fit: contain;
+  border: 1px solid #d7d0c3;
+  border-radius: 8px;
+  background: #f9f6ef;
+}
+
+.empty-result {
+  min-height: 210px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #cfc7b8;
+  border-radius: 8px;
+  background: #fffcf6;
+}
+
+.raw-collapse {
+  margin-top: 16px;
+}
+
+.raw-json {
+  max-height: 320px;
+  margin: 0;
+  overflow: auto;
+  text-align: left;
+  direction: ltr;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+}
+
+@media (max-width: 900px) {
+  .app-shell {
+    padding: 16px;
+  }
+
+  .app-grid {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .responsive-field {
+    width: 100%;
+    padding-inline-end: 0;
+  }
+}
