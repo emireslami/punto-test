@@ -4,8 +4,10 @@ import {
   ApiOutlined,
   CloudUploadOutlined,
   CodeOutlined,
+  ClockCircleOutlined,
+  CustomerServiceOutlined,
+  DownOutlined,
   FileImageOutlined,
-  ThunderboltOutlined,
 } from "@ant-design/icons";
 import {
   App,
@@ -235,12 +237,25 @@ function RenderPanel() {
     <main className="studio-shell" dir="rtl">
       <header className="studio-header">
         <div className="header-actions">
-          <Button size="small">تاریخچه</Button>
-          <Button size="small" shape="circle">؟</Button>
+          <Button size="small" type="text" icon={<DownOutlined />} aria-label="باز کردن منو" />
+          <span className="workspace-mark" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </span>
+          <Button size="small" className="history-button" icon={<ClockCircleOutlined />}>
+            تاریخچه
+          </Button>
+          <Button
+            size="small"
+            type="text"
+            shape="circle"
+            icon={<CustomerServiceOutlined />}
+            aria-label="پشتیبانی"
+          />
         </div>
         <div className="brand-side">
           <img src="/punto-logo.svg" alt="Punto" className="header-logo" />
-          <span className="brand-mark">P</span>
         </div>
       </header>
 

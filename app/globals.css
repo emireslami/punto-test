@@ -75,8 +75,8 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 56px;
-  padding: 0 22px;
+  height: 50px;
+  padding: 0 18px;
   border-bottom: 1px solid var(--punto-border);
   background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(12px);
@@ -89,8 +89,49 @@ textarea {
   gap: 10px;
 }
 
+.header-actions {
+  flex-direction: row-reverse;
+}
+
+.header-actions .ant-btn {
+  color: #111827;
+  box-shadow: none;
+}
+
+.history-button {
+  min-width: 102px;
+  border: 0;
+  background: #f2f4f7;
+  color: #111827;
+  font-weight: 700;
+}
+
+.history-button:hover {
+  background: #e9edf3 !important;
+  color: #111827 !important;
+}
+
+.workspace-mark {
+  display: grid;
+  grid-template-columns: repeat(3, 5px);
+  gap: 3px;
+  width: 28px;
+  height: 28px;
+  align-items: stretch;
+  transform: skewX(-8deg);
+}
+
+.workspace-mark span {
+  display: block;
+  background: #111827;
+}
+
+.workspace-mark span:nth-child(2) {
+  background: linear-gradient(180deg, #111827 0 44%, #ffffff 44% 54%, #111827 54%);
+}
+
 .header-logo {
-  width: 93px;
+  width: 84px;
   height: auto;
 }
 
