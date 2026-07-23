@@ -14,6 +14,7 @@ import {
   Card,
   Collapse,
   ConfigProvider,
+  Divider,
   Empty,
   Flex,
   Form,
