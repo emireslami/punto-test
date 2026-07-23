@@ -12,6 +12,7 @@ import {
   SettingOutlined,
   ShopOutlined,
   StarOutlined,
+  ThunderboltOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import {
@@ -67,6 +68,72 @@ type FormValues = {
 };
 
 type PageKey = "profile" | "projects" | "business" | "jobs" | "ai";
+type AiToolKey = "exterior";
+
+const aiTools = [
+  {
+    key: "exterior",
+    title: "رندر خارجی",
+    badge: "MNMLAI Exterior",
+    category: "رندرینگ",
+    credits: "۱۰",
+    ready: true,
+    image:
+      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    key: "sketch",
+    title: "تبدیل اسکیس به رندر",
+    badge: "MNMLAI Sketch",
+    category: "رندرینگ",
+    credits: "۱۰",
+    ready: false,
+    image:
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    key: "interior",
+    title: "مبلمان فضای داخلی",
+    badge: "MNMLAI Virtual",
+    category: "طراحی داخلی",
+    credits: "۱۰",
+    ready: false,
+    image:
+      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    key: "enhancer",
+    title: "افزایش کیفیت رندر",
+    badge: "MNMLAI Enhancer",
+    category: "ارائه و تولید مدارک",
+    credits: "۱۰",
+    ready: false,
+    image:
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    key: "video",
+    title: "ویدئو معماری",
+    badge: "MNMLAI Motion",
+    category: "ارائه و تولید مدارک",
+    credits: "۱۰۰",
+    ready: false,
+    image:
+      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    key: "kitchen",
+    title: "طراحی آشپزخانه",
+    badge: "MNMLAI Interior",
+    category: "طراحی داخلی",
+    credits: "۱۰",
+    ready: false,
+    image:
+      "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=900&q=80",
+  },
+] as const;
+
+const aiCategories = ["همه", "طراحی کانسپت", "رندرینگ", "طراحی داخلی", "ارائه و تولید مدارک"];
 
 export default function Home() {
   return (
@@ -116,6 +183,7 @@ function RenderPanel() {
   const [stylePreset, setStylePreset] = useState("none");
   const [fidelity, setFidelity] = useState(75);
   const [activePage, setActivePage] = useState<PageKey>("ai");
+  const [activeAiTool, setActiveAiTool] = useState<AiToolKey | null>(null);
 
   const canSubmit = useMemo(() => Boolean(image && !isSubmitting), [image, isSubmitting]);
   const heroImage = resultUrls[0] || preview;
@@ -127,6 +195,7 @@ function RenderPanel() {
     { key: "ai", label: "هوش مصنوعی", icon: <StarOutlined /> },
   ];
   const activeNavItem = navItems.find((item) => item.key === activePage) || navItems[4];
+  const isAiToolOpen = activePage === "ai" && activeAiTool === "exterior";
 
   function handleUpload(nextFile: File) {
     setImage(nextFile);
@@ -265,7 +334,10 @@ function RenderPanel() {
                 key={item.key}
                 type="button"
                 className={activePage === item.key ? "active" : ""}
-                onClick={() => setActivePage(item.key)}
+                onClick={() => {
+                  setActivePage(item.key);
+                  if (item.key === "ai") setActiveAiTool(null);
+                }}
               >
                 {item.icon}
                 <span>{item.label}</span>
@@ -300,17 +372,21 @@ function RenderPanel() {
 
           <div className="breadcrumb-row">
             <span>{activeNavItem.label}</span>
-            {activePage === "ai" ? (
+            {isAiToolOpen ? (
               <>
-                <span>طراحی کانسپت</span>
-                <span>طراحی نمای خارجی</span>
+                <span>رندرینگ</span>
+                <span>رندر خارجی</span>
               </>
+            ) : activePage === "ai" ? (
+              <span>خانه ابزارها</span>
             ) : (
               <span>هنوز آماده نیست</span>
             )}
           </div>
 
-          {activePage === "ai" ? (
+          {activePage === "ai" && !activeAiTool ? (
+            <AiHomePage onOpenExterior={() => setActiveAiTool("exterior")} />
+          ) : isAiToolOpen ? (
             <section className="studio-layout">
             <aside className="settings-rail">
           <Form<FormValues>
@@ -551,6 +627,56 @@ function RenderPanel() {
         </div>
       </section>
     </main>
+  );
+}
+
+function AiHomePage({ onOpenExterior }: { onOpenExterior: () => void }) {
+  return (
+    <section className="ai-home">
+      <div className="ai-home-header">
+        <div>
+          <span className="canvas-eyebrow">کتابخانه ابزارهای هوش مصنوعی</span>
+          <Title level={1}>با یک ابزار شروع کن</Title>
+          <Paragraph>
+            ابزارهای معماری Punto برای رندرینگ، طراحی داخلی و آماده‌سازی ارائه اینجا
+            جمع شده‌اند. فعلاً ابزار رندر خارجی آماده استفاده است.
+          </Paragraph>
+        </div>
+      </div>
+
+      <div className="ai-category-tabs" aria-label="دسته‌بندی ابزارهای هوش مصنوعی">
+        {aiCategories.map((category) => (
+          <button key={category} type="button" className={category === "همه" ? "active" : ""}>
+            {category}
+          </button>
+        ))}
+      </div>
+
+      <div className="ai-tool-grid">
+        {aiTools.map((tool) => (
+          <button
+            key={tool.key}
+            type="button"
+            className={`ai-tool-card ${tool.ready ? "ready" : ""}`}
+            onClick={tool.ready ? onOpenExterior : undefined}
+          >
+            <span className="tool-image" style={{ backgroundImage: `url(${tool.image})` }}>
+              <span className="credit-pill">
+                {tool.credits}
+                <ThunderboltOutlined />
+              </span>
+            </span>
+            <span className="tool-meta">
+              <span>
+                <Tag color="blue">{tool.badge}</Tag>
+                <strong>{tool.title}</strong>
+              </span>
+              <small>{tool.ready ? "آماده استفاده" : "به‌زودی"}</small>
+            </span>
+          </button>
+        ))}
+      </div>
+    </section>
   );
 }
 
